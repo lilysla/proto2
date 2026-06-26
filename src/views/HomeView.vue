@@ -1,71 +1,188 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-const dateRanges = ['Last 7 days', 'Last 30 days', 'Last 90 days']
-const selectedRange = ref(dateRanges[1])
+const dateRanges = ['Last 7 days', 'Last 30 days', 'Last 90 days'] as const
 
-const shipmentSeries = ref([95, 110, 132, 128, 155, 170, 160])
-const orders = ref([
-  {
-    id: 'FF-1003',
-    origin: 'Chicago, IL',
-    destination: 'Atlanta, GA',
-    expected: '2026-07-02',
-    delivered: '2026-07-01',
-    status: 'Delivered',
-  },
-  {
-    id: 'FF-1004',
-    origin: 'Los Angeles, CA',
-    destination: 'Dallas, TX',
-    expected: '2026-07-04',
-    delivered: '2026-07-05',
-    status: 'Late',
-  },
-  {
-    id: 'FF-1005',
-    origin: 'Newark, NJ',
-    destination: 'Miami, FL',
-    expected: '2026-07-06',
-    delivered: '2026-07-06',
-    status: 'Delivered',
-  },
-  {
-    id: 'FF-1006',
-    origin: 'Seattle, WA',
-    destination: 'Denver, CO',
-    expected: '2026-07-03',
-    delivered: '2026-07-03',
-    status: 'Delivered',
-  },
-])
+type DateRange = (typeof dateRanges)[number]
 
-const regions = ref([
-  { name: 'North America', rate: 94, deliveries: 540 },
-  { name: 'Midwest', rate: 91, deliveries: 320 },
-  { name: 'South', rate: 88, deliveries: 270 },
-  { name: 'West', rate: 96, deliveries: 190 },
-])
+const selectedRange = ref<DateRange>(dateRanges[1])
+
+const rangeData: Record<DateRange, {
+  shipmentSeries: number[]
+  totalShipments: string
+  onTime: string
+  exceptions: string
+  support: string
+  orders: Array<{ id: string; origin: string; destination: string; expected: string; delivered: string; status: string }>
+  regions: Array<{ name: string; rate: number; deliveries: number }>
+}> = {
+  'Last 7 days': {
+    shipmentSeries: [95, 110, 132, 128, 155, 170, 160],
+    totalShipments: '1,840',
+    onTime: '92%',
+    exceptions: '14',
+    support: '6 tickets',
+    orders: [
+      {
+        id: 'FF-1003',
+        origin: 'Chicago, IL',
+        destination: 'Atlanta, GA',
+        expected: '2026-07-02',
+        delivered: '2026-07-01',
+        status: 'Delivered',
+      },
+      {
+        id: 'FF-1004',
+        origin: 'Los Angeles, CA',
+        destination: 'Dallas, TX',
+        expected: '2026-07-04',
+        delivered: '2026-07-05',
+        status: 'Late',
+      },
+      {
+        id: 'FF-1005',
+        origin: 'Newark, NJ',
+        destination: 'Miami, FL',
+        expected: '2026-07-06',
+        delivered: '2026-07-06',
+        status: 'Delivered',
+      },
+      {
+        id: 'FF-1006',
+        origin: 'Seattle, WA',
+        destination: 'Denver, CO',
+        expected: '2026-07-03',
+        delivered: '2026-07-03',
+        status: 'Delivered',
+      },
+    ],
+    regions: [
+      { name: 'North America', rate: 94, deliveries: 540 },
+      { name: 'Midwest', rate: 91, deliveries: 320 },
+      { name: 'South', rate: 88, deliveries: 270 },
+      { name: 'West', rate: 96, deliveries: 190 },
+    ],
+  },
+  'Last 30 days': {
+    shipmentSeries: [120, 135, 142, 153, 170, 162, 155],
+    totalShipments: '7,420',
+    onTime: '90%',
+    exceptions: '38',
+    support: '12 tickets',
+    orders: [
+      {
+        id: 'FF-1087',
+        origin: 'Phoenix, AZ',
+        destination: 'Houston, TX',
+        expected: '2026-06-30',
+        delivered: '2026-06-29',
+        status: 'Delivered',
+      },
+      {
+        id: 'FF-1088',
+        origin: 'Boston, MA',
+        destination: 'Chicago, IL',
+        expected: '2026-07-02',
+        delivered: '2026-07-03',
+        status: 'Late',
+      },
+      {
+        id: 'FF-1089',
+        origin: 'Denver, CO',
+        destination: 'Seattle, WA',
+        expected: '2026-07-04',
+        delivered: '2026-07-04',
+        status: 'Delivered',
+      },
+      {
+        id: 'FF-1090',
+        origin: 'Miami, FL',
+        destination: 'Newark, NJ',
+        expected: '2026-07-05',
+        delivered: '2026-07-05',
+        status: 'Delivered',
+      },
+    ],
+    regions: [
+      { name: 'North America', rate: 92, deliveries: 2_100 },
+      { name: 'Midwest', rate: 89, deliveries: 1_180 },
+      { name: 'South', rate: 87, deliveries: 950 },
+      { name: 'West', rate: 94, deliveries: 720 },
+    ],
+  },
+  'Last 90 days': {
+    shipmentSeries: [110, 123, 145, 138, 160, 178, 172],
+    totalShipments: '18,900',
+    onTime: '89%',
+    exceptions: '62',
+    support: '18 tickets',
+    orders: [
+      {
+        id: 'FF-1112',
+        origin: 'Dallas, TX',
+        destination: 'Boston, MA',
+        expected: '2026-06-28',
+        delivered: '2026-06-29',
+        status: 'Late',
+      },
+      {
+        id: 'FF-1113',
+        origin: 'Atlanta, GA',
+        destination: 'Chicago, IL',
+        expected: '2026-07-01',
+        delivered: '2026-07-01',
+        status: 'Delivered',
+      },
+      {
+        id: 'FF-1114',
+        origin: 'San Francisco, CA',
+        destination: 'Denver, CO',
+        expected: '2026-07-03',
+        delivered: '2026-07-03',
+        status: 'Delivered',
+      },
+      {
+        id: 'FF-1115',
+        origin: 'Miami, FL',
+        destination: 'Seattle, WA',
+        expected: '2026-07-05',
+        delivered: '2026-07-05',
+        status: 'Delivered',
+      },
+    ],
+    regions: [
+      { name: 'North America', rate: 91, deliveries: 5_800 },
+      { name: 'Midwest', rate: 87, deliveries: 3_100 },
+      { name: 'South', rate: 85, deliveries: 2_600 },
+      { name: 'West', rate: 93, deliveries: 1_900 },
+    ],
+  },
+}
+
+const currentData = computed(() => rangeData[selectedRange.value])
+const shipmentSeries = computed(() => currentData.value.shipmentSeries)
+const orders = computed(() => currentData.value.orders)
+const regions = computed(() => currentData.value.regions)
 
 const cards = computed(() => [
   {
     title: 'Shipment volume',
-    value: '1,840',
+    value: currentData.value.totalShipments,
     detail: 'Total shipments in period',
   },
   {
     title: 'On-time delivery',
-    value: '92%',
+    value: currentData.value.onTime,
     detail: 'Percentage of orders delivered on time',
   },
   {
     title: 'Open exceptions',
-    value: '14',
+    value: currentData.value.exceptions,
     detail: 'Active exception cases',
   },
   {
     title: 'Pending support',
-    value: '6 tickets',
+    value: currentData.value.support,
     detail: 'Support requests awaiting response',
   },
 ])
