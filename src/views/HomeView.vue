@@ -353,6 +353,7 @@ const submitTicket = () => {
 .chart {
   display: grid;
   gap: 1rem;
+  margin-top: 10.2rem;
 }
 
 .chart-axis {
