@@ -1,119 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FastForward Logistics Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="app-shell">
-    <header class="hero-panel">
-      <div>
-        <p class="eyebrow">FastForward Logistics</p>
-        <h1>Executive Operations Dashboard</h1>
-        <p class="hero-text">Track shipment volume, on-time delivery, regional performance, open exceptions, and support requests in one view.</p>
-      </div>
-      <div class="hero-actions">
-        <label for="dateFilter">Date range</label>
-        <select id="dateFilter" aria-label="Select date range"></select>
-      </div>
-    </header>
-
-    <main class="dashboard-grid">
-      <section class="metric-card gradient-card" id="shipmentsCard">
-        <div class="card-header">
-          <p>Shipment volume</p>
-          <span class="metric-value" id="shipmentVolume">0</span>
-        </div>
-        <div class="metric-subtext" id="shipmentInterval">Last 7 days</div>
-        <div class="chart-panel" aria-label="Shipment volume chart">
-          <svg id="shipmentChart" viewBox="0 0 500 220" preserveAspectRatio="none"></svg>
-        </div>
-      </section>
-
-      <section class="metric-card info-card">
-        <div class="card-header">
-          <p>On-time delivery rate</p>
-          <span class="metric-value" id="onTimeRate">0%</span>
-        </div>
-        <div class="progress-bar" aria-label="On-time delivery progress">
-          <div class="progress-fill" id="onTimeFill"></div>
-        </div>
-        <p class="metric-detail" id="onTimeDetail">Calculating performance...</p>
-      </section>
-
-      <section class="metric-card stats-card">
-        <div class="card-header">
-          <p>Open exceptions</p>
-          <span class="metric-value" id="openExceptions">0</span>
-        </div>
-        <div class="exception-list" id="exceptionList"></div>
-      </section>
-
-      <section class="metric-card table-card">
-        <div class="card-header">
-          <p>Recent order activity</p>
-        </div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Order</th>
-                <th>Location</th>
-                <th>Expected</th>
-                <th>Delivered</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="orderTable"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="metric-card region-card">
-        <div class="card-header">
-          <p>Regional performance</p>
-        </div>
-        <div class="region-list" id="regionPerformance"></div>
-      </section>
-
-      <section class="metric-card support-card">
-        <div class="card-header">
-          <p>Support tickets</p>
-          <button class="primary-button" id="openTicketButton">Submit request</button>
-        </div>
-        <p class="support-text">Create a ticket for delivery exceptions, invoice issues, or urgent logistics support.</p>
-      </section>
-    </main>
-  </div>
-
-  <div class="modal-backdrop hidden" id="ticketModal" role="dialog" aria-modal="true" aria-labelledby="ticketTitle">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h2 id="ticketTitle">New support ticket</h2>
-        <button class="close-button" id="closeModal" aria-label="Close ticket form">✕</button>
-      </div>
-      <form id="ticketForm">
-        <label for="ticketIssue">Issue type</label>
-        <select id="ticketIssue" required>
-          <option value="">Choose issue</option>
-          <option value="delay">Shipment delay</option>
-          <option value="documentation">Documentation issue</option>
-          <option value="quality">Delivery quality</option>
-          <option value="other">Other</option>
-        </select>
-        <label for="ticketMessage">Message</label>
-        <textarea id="ticketMessage" rows="4" placeholder="Describe the problem..." required></textarea>
-        <button class="primary-button submit-button" type="submit">Send ticket</button>
-        <p class="modal-note">Ticket submissions are simulated in this static dashboard.</p>
-      </form>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FastForward Logistics Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>

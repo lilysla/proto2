@@ -2,8 +2,6 @@
 An executive dashboard for FastForward Logistics. FastForward Logistics is a mid-size freight and supply chain company. They want to see how the business is running: shipment volume, on-time delivery rates, regional performance, and open exceptions. 
 
 ## Tech
-- Pure HTML, CSS, and Javascript - no frameworks, no build tools. 
-- Single index.html file (CSS and JS can be separate files)
 - Deploys to Vercel as a static site 
 
 ## Design
